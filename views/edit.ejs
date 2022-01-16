@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/post.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="inner">
+        <a href="/"><h1 class="title">그냥 대충 아무 갤러리</h1></a>
+        <hr class="second">
+        <form action="/edit/<%= post._id%>?_method=PUT" method="post">
+            <input value="<%= post.name %>" type="text" name="name" placeholder="닉네임" required>
+            <input value="<%= post.password %>" type="password" name="password" placeholder="비밀번호" required>
+            <input value="<%= post.title %>" type="text" name="title" placeholder="제목을 입력해 주세요" required>
+            <textarea name="content" id="" cols="30" rows="10"><%= post.content %></textarea>
+            <button class="btn white cancel">취소</button>
+            <button type="submit" class="btn blue newpost">등록</button>
+        </form>
+    </div>
+</body>
+</html>

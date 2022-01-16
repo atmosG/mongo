@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/detail.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="../js/btns.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="inner">
+        <a href="/"><h1 class="title">그냥 대충 아무 갤러리</h1></a>
+        <hr class="second">
+        <article>
+            <section class="head">
+                <h2><%= data.title %></h2>
+                <div class="writer">
+                    <div class="fl">
+                        <span><%= data.name %></span>
+                        <span>(ip)</span>
+                        <span>날짜</span>
+                    </div>
+                    <div class="fr">
+                        <span>조회</span>
+                        <span>추천</span>
+                        <span>댓글</span>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="view-box">
+                    <%= data.content %>
+                </div>
+            </section>
+            <section class="comment">
+                
+            </section>
+            <div class="btn-box" data-id="<%= data._id %>">
+                <button class="btn silver put">수정</button>
+                <button class="btn silver delete">삭제</button>
+            </div>
+        </article>
+    </div>
+</body>
+</html>

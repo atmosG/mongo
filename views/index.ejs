@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="inner">
+        <a href="/"><h1 class="title">그냥 대충 아무 갤러리</h1></a>
+        <hr class="second">
+        <div class="btn-container">
+            <button class="btn blue">전체글</button>
+            <button class="btn white">공지</button>
+        </div>
+        <table class="posts">
+            <tr class="post-title">
+                <th>번호</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>조회</th>
+                <th>추천</th>
+            </tr>
+
+            <% for (let i=0; i < posts.length; i++){ %>
+                <tr class="post-items" data-id="<%= posts[i]._id %>">
+                    <td class="item no"><%= posts[i]._id %></td>
+                    <td class="item title"><%= posts[i].title %></td>
+                    <td class="item writer"><%= posts[i].name %></td>
+                    <td class="item views">dd</td>
+                    <td class="item like">ff</td>
+                </tr>
+            <% } %>
+
+        </table>
+        <a href="./post">
+            <button class="btn blue newpost">글쓰기</button>
+        </a>
+    </div>
+    <script>
+        $('.post-items').click( e => {
+            const target = e.target.className;
+            const postNumber = e.currentTarget.dataset.id;
+            switch (target) {
+                case "delete" :
+                    $.ajax({
+                        method : 'DELETE',
+                        url : '/delete',
+                        data : { _id : postNumber }
+                    })
+                    .done( result => {
+                        $(e.currentTarget).fadeOut()
+                    })
+                    break;
+                case "item title" :
+                    location.href = `detail/${postNumber}`
+                    break;
+            }
+        })
+    </script>
+</bodyinnerhtml>

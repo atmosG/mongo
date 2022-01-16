@@ -1,0 +1,97 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.inner
+{
+    width: 80%;
+    margin: auto;
+    position: relative;
+}
+
+h1
+{
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #002060;
+}
+hr
+{
+    border: none;
+    background-color: #002060a6;
+    height: 1px;
+}
+.head
+{
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+    margin-bottom: 12px;
+}
+.head h2
+{
+    font-size: 14px;
+    font-weight: 600;
+}
+.head .writer
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+.head .writer .fl span:first-child ~ span:nth-child(2)
+{
+    padding-right: 10px;
+    border-right: 1px solid #333;
+}
+.head .writer .fl span:nth-child(3)
+{
+    padding-left: 10px;
+}
+.content
+{
+    min-height: 80vh;
+}
+.comment
+{
+    min-height: 150px;
+    border-top: 1px solid #002060a6;
+    border-bottom: 1px solid #002060a6;
+    margin-bottom: 10px;
+}
+.btn
+{
+    width: 80px;
+    height: 30px;
+    border-radius: 1px;
+    font-size: 15px;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+}
+.btn-box
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+.btn-box .silver
+{
+    background-color: #3e3e3e;
+    border-bottom: 2px solid #1e1e1e;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 10px;
+}

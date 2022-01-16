@@ -1,0 +1,117 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.inner
+{
+    width: 80%;
+    margin: auto;
+    position: relative;
+}
+
+h1
+{
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #002060;
+}
+
+hr
+{
+    border: none;
+    background-color: #002060a6;
+    height: 1px;
+}
+.btn-container
+{
+    margin: 10px 0;
+}
+.btn
+{
+    width: 80px;
+    height: 30px;
+    border-radius: 1px;
+    font-size: 15px;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+}
+.btn.blue
+{
+    background-color: #002060;
+    color: #fff;
+}
+.btn.blue.newpost
+{
+    position: absolute;
+    right: 0;
+}
+.btn.white
+{
+    background-color: #fefefe;
+    border: 1px solid #1e1e1e;
+}
+
+table
+{
+    width: 100%;
+    max-height: 100vh;
+    border: 1px solid #002060;
+    border-right: none;
+    border-left: none;
+    padding-bottom: 6px;
+    margin: 10px 0;
+    border-collapse: collapse;
+}
+tr
+{
+    text-align: center;
+    height: 25px;
+    border-bottom: 1px solid #e7e6e6;
+}
+tr:last-child
+{
+    border-bottom: 1px solid #002060;
+}
+.post-title
+{
+    height: 30px;
+    border-bottom: 1px solid #002060a6;
+}
+.post-title th:nth-child(1)
+{
+    width: 10%;
+}
+.post-title th:nth-child(2)
+{
+    width: 50%;
+    
+}
+.post-title th:nth-child(3)
+{
+    width: 20%;
+}
+.post-title th:nth-child(4)
+{
+    width: 10%;
+}
+.post-title th:nth-child(5)
+{
+    width: 10%;
+}
+.item.title
+{
+    text-align: left;
+    padding-left: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}

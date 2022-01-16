@@ -50,7 +50,6 @@ app.use(express.urlencoded( {extended : true} ))
 
 
 app.post('/newpost', function(요청, 응답){
-    응답.send('포스트요청 완료')
     const 요청내용 = 요청.body;
     // counter 콜렉션에서 총 게시물갯수 뽑아오기
     // db.collection('콜렉션이름').findOne( { 수정하고싶은 특정 도큐먼트 } , 콜백함수)
@@ -68,6 +67,7 @@ app.post('/newpost', function(요청, 응답){
                     // operator : %set, %inc, 기타 등등
                     db.collection('counter').updateOne({name:'게시물갯수'}, { $inc : {totalPost : 1} }, function(에러, 결과){
                         if (에러) return console.log(에러)
+                        응답.redirect('/')
                     })
                 }
             )
@@ -75,15 +75,81 @@ app.post('/newpost', function(요청, 응답){
     )
 })
 
-app.delete('/delete', (요청, 응답) => {
-    요청.body._id = parseInt(요청.body._id);
+app.delete('/delete/:id', (요청, 응답) => {
     // db.collection('콜렉션').deleteOne( { 삭제할대상 }, 콜백함수 )
-    db.collection('post').deleteOne( 요청.body, function(에러,결과){
-        응답.status(200).send( {message : '성공' });
-    } )
+    db.collection('post').deleteOne( 
+        { _id : parseInt(요청.params.id) }, 
+        function(에러,결과){
+        응답.status(200).send( { message : '성공' });
+    })
 })
 
+app.get('/edit/:id', (req, response) => {
+    db.collection('post').findOne(
+        { _id : parseInt(req.params.id) },
+        ( error, result ) => {
+            response.render( 'edit.ejs', { post : result } )
+        }
+    )
+})
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
+app.put('/edit/:id', (req,res) => {
+    const reqNumber = parseInt(req.params.id);
+    const reqBody = req.body;
+
+    // db.collection('post').updateOne( {바꿀데이터}, {바꿀내용}, 콜백함수 )
+    db.collection('post').updateOne(
+        { _id : reqNumber },
+        { $set : { _id : reqNumber, ...reqBody } },
+        ( error, result ) => {
+            res.redirect('/')
+        }
+    )
+})
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+// 미들웨어 세팅
+// {secret : '비밀코드', ... } secret은 세션 생성시 쓸 비밀번호. 입맛껏 만들어쓰셈
+app.use( session( {secret : '비밀코드', resave : true, saveUninitialized: false} ) ); // 
+app.use( passport.initialize(  ) );
+app.use( passport.session(  ) ); 
 
 
+app.get('/login', (req,res) => {
+    res.render('login.ejs')
+})
+
+app.post('/login', passport.authenticate(
+    'local', 
+    { failureRedirect : '/fail' }), 
+    (req,res) => {
+        res.redirect('/')
+    }
+)
+
+passport.use(new LocalStrategy({
+    usernameField: 'id', // 유저가 제출한 아이디가 적혀있는 input 태그의 name
+    passwordField: 'pw', // 유저가 제출한 비번이 적혀있는 input 태그의 name
+    session: true, // 세션 만드쉴?
+    passReqToCallback: false, // id/pw 말고 다른 정보도 검사 할거임?
+  }, function (입력한아이디, 입력한비번, done) {
+      // db의 login 콜렉션에 저장된 회원정보랑 비교할거임
+      // id가 있는지, pw은 맞는지 검사
+    db.collection('login').findOne({ id: 입력한아이디 }, function (에러, 결과) {
+      if (에러) return done(에러)
+      // 입력한 id가 db상에 있으면 결과에 뭔가 담겨있겠지?
+      if (!결과) return done(null, false, { message: '존재하지않는 아이디요' })
+      if (입력한비번 == 결과.pw) {
+        return done(null, 결과)
+      } else {
+        return done(null, false, { message: '비번틀렸어요' })
+      }
+    })
+}));
 
 
+passport.serializeUser( (user, done) => { done( null, user.id ) } )
