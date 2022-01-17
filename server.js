@@ -152,4 +152,28 @@ passport.use(new LocalStrategy({
 }));
 
 
-passport.serializeUser( (user, done) => { done( null, user.id ) } )
+passport.serializeUser( (user, done) => { 
+    done( null, user.id ) 
+})
+
+passport.deserializeUser( (userId, done) => {
+        db.collection('login').findOne({ id : userId }, (err, res) => {
+            console.log(res)
+            done(null, res)
+        })
+    }
+)
+
+const isLogined = function(req, res, next) {
+    if (req.user) {   // req.user엔 신기하게도  deseriallzeUser 함수에서 뱉어낸 유저정보가 담겨있음
+        next()        // 다음 미들웨어로의 액세스 함수
+                      // 그러니까 req.user가 정상적으로 있으면 isLogined 옆의 화살표 함수로 넘어가겠다는 뜻
+    } else {
+        res.send('로그인 안하셨는데요???')
+    }
+}
+
+app.get('/mypage', isLogined, (req,res) => {
+    res.render('mypage.ejs', { user : req.user });
+})
+
