@@ -9,7 +9,12 @@
     font-size: 12px;
     font-weight: 500;
 }
-
+header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .inner
 {
     width: 80%;
